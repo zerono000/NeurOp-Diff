@@ -1,0 +1,42 @@
+test_dataset:
+    dataset:
+        root_path: ./data/SIOR/test_HR_600
+        repeat: 1
+    wrapper:
+        inp_size: 128
+        scale_min: 1
+        scale_max: 4
+        augment: False
+        train: False
+    batch_size: 10
+
+data:
+    logit_transform: False
+    uniform_dequantization: False
+    gaussian_dequantization: False
+    rescaled: True
+
+model:
+    type: "simple"
+    in_channels: 3
+    out_ch: 3
+    ch: 128
+    ch_mult: [1, 1, 2, 2, 4, 4]
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    dropout: 0.3
+    var_type: fixedsmall
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+    srno:
+        encoder: edsr-baseline
+        no_upsampling: True
+        width: 128
+        blocks: 16
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.0001
+    beta_end: 0.02
+    num_diffusion_timesteps: 1000

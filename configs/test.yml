@@ -1,0 +1,46 @@
+test_dataset:
+    dataset:
+        root_path: ./data/celeba_hq_256/val
+        # hr_path: ./data/AID/test_HR
+        # lr_path: ./data/AID/test_LR_x4
+        
+        repeat: 1
+    wrapper:
+        # hr_size: 256
+        inp_size: 64
+        scale_min: 4
+        scale_max: 4
+        augment: False
+    batch_size: 1
+
+data:
+    image_size: 256
+    logit_transform: False
+    uniform_dequantization: False
+    gaussian_dequantization: False
+    rescaled: True
+
+model:
+    type: "simple"
+    in_channels: 192
+    out_ch: 3
+    ch: 64
+    ch_mult: [1, 2, 2, 4, 4] #[1, 1, 2, 2, 4, 4]
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    dropout: 0.2
+    var_type: fixedsmall
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+    srno:
+        encoder: edsr-baseline
+        no_upsampling: True
+        width: 128
+        blocks: 16
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.000001
+    beta_end: 0.01
+    num_diffusion_timesteps: 2000

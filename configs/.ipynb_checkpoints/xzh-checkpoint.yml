@@ -1,0 +1,69 @@
+train_dataset:
+    dataset:
+        hr_path: ./data/AID/train_HR
+        lr_path: ./data/AID/train_LR_x4
+        augment: True
+        repeat: 1
+    scale:
+        hr_size: 256
+        scale_min: 4
+        scale_max: 4
+    batch_size: 6
+
+val_dataset:
+    dataset:
+        hr_path: ./data/AID/val_HR
+        lr_path: ./data/AID/val_LR_x4
+        augment: False
+        repeat: 1
+    scale:
+        hr_size: 256
+        scale_min: 4
+        scale_max: 4
+    batch_size: 20
+
+data:
+    channels: 3
+    image_size: 256
+    logit_transform: False
+    uniform_dequantization: False
+    gaussian_dequantization: False
+    rescaled: True
+
+model:
+    type: "simple"
+    in_channels: 3
+    out_ch: 3
+    ch: 64
+    ch_mult: [1, 1, 2, 2, 4, 4] #[1, 1, 2, 2, 4, 4]
+    num_res_blocks: 2
+    attn_resolutions: [16, ]
+    dropout: 0.3
+    var_type: fixedsmall
+    ema_rate: 0.999
+    ema: True
+    resamp_with_conv: True
+    srno:
+        encoder: edsr-baseline
+        no_upsampling: True
+        width: 256
+        blocks: 16
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.000001 #0.0001
+    beta_end: 0.02 #0.02
+    num_diffusion_timesteps: 2000
+
+training:
+    n_epochs: 100
+    epoch_save_freq: 1
+
+optim:
+    weight_decay: 0.000
+    optimizer: "Adam"
+    lr: 0.00003
+    beta1: 0.9
+    amsgrad: True
+    eps: 0.00000001
+    grad_clip: 1000.0
