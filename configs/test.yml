@@ -1,0 +1,43 @@
+test_dataset:
+    dataset:
+        root_path: ./data/test
+        repeat: 1
+        scale_min: 4
+        scale_max: 4
+        augment: False
+    batch_size: 1
+
+data:
+    logit_transform: False
+    uniform_dequantization: False
+    gaussian_dequantization: False
+    rescaled: True
+
+model:
+    type: "simple"
+    image_size: 256
+    in_channel: 6
+    out_channel: 3
+    inner_channel: 64
+    norm_groups: 32 # 16
+    channel_mults: [1, 2, 2, 2, 4, 4, 4] #[1, 2, 2, 4, 4, 8]
+    res_blocks: 2 # 1
+    attn_res: [16, ]
+    dropout: 0
+    var_type: fixedsmall
+    ema_rate: 0.999
+    ema: True
+    with_noise_level_emb: True
+    srno:
+        encoder: edsr-baseline
+        no_upsampling: True
+        width: 256
+        blocks: 16
+
+diffusion:
+    beta_schedule: linear
+    beta_start: 0.000001
+    beta_end: 0.01
+    num_diffusion_timesteps: 2000
+
+srno_weight: /home/aiseon/Downloads/save/train_edsr-sronet/epoch-100.pth
