@@ -25,7 +25,7 @@ def parse_args_and_config():
     parser.add_argument("--path", type=str, required=True, help="Path to the image")
     parser.add_argument("--seed", type=int, default=60000, help="Random seed")
     parser.add_argument(
-        "--timesteps", type=int, default=10, help="number of steps involved"
+        "--timesteps", type=int, default=50, help="number of steps involved"
     )
     parser.add_argument(
         "--ni",
