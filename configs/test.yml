@@ -2,7 +2,6 @@ test_dataset:
     dataset:
         root_path: ./data/test
         repeat: 1
-        scale_min: 4
         scale_max: 4
         augment: False
     batch_size: 1
@@ -19,9 +18,9 @@ model:
     in_channel: 6
     out_channel: 3
     inner_channel: 64
-    norm_groups: 32 # 16
-    channel_mults: [1, 2, 2, 2, 4, 4, 4] #[1, 2, 2, 4, 4, 8]
-    res_blocks: 2 # 1
+    norm_groups: 16 #32
+    channel_mults: [1, 2, 2, 4, 4, 8]
+    res_blocks: 1 # 2
     attn_res: [16, ]
     dropout: 0
     var_type: fixedsmall
@@ -40,4 +39,4 @@ diffusion:
     beta_end: 0.01
     num_diffusion_timesteps: 2000
 
-srno_weight: /home/aiseon/Downloads/save/train_edsr-sronet/epoch-100.pth
+srno_weight: ./srno_weight.pth

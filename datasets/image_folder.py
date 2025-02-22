@@ -20,7 +20,10 @@ class ImageFolder(Dataset):
         self.repeat = spec.repeat
         self.augment = spec.augment
         self.image_path = image_path
-        self.p = random.randint(spec.scale_min, spec.scale_max)
+        if self.augment:
+            self.p = random.randint(spec.scale_min, spec.scale_max)
+        else:
+            self.p = spec.scale_max
 
         if image_path == None:
             self.root_path = spec.root_path
@@ -53,6 +56,7 @@ class ImageFolder(Dataset):
 
         hr_image = Image.open(hr_file).convert('RGB')
         hr_image = transforms.ToTensor()(hr_image)
+        
         w_lr = round(hr_image.shape[-1] / round(self.p))
         lr_image = resize_fn(hr_image, w_lr)
 

@@ -34,7 +34,7 @@ def make_data_loader(spec, image_path=None, tag=''):
 
     dataset = ImageFolder(spec.dataset, image_path)
     loader = DataLoader(dataset, batch_size=spec.batch_size,
-        shuffle=(tag == 'train'), num_workers=0, pin_memory=True, persistent_workers=False)
+        shuffle=(tag == 'train'), num_workers=5, pin_memory=True, persistent_workers=True)
 
     return loader
 
@@ -234,7 +234,8 @@ class Diffusion(object):
             avg_loss = Averager()
 
             print(f"----------------- Executing training iteration {epoch} epoch. -----------------")
-            for i, data in enumerate(train_loader):
+            # for i, data in enumerate(train_loader):
+            for data in tqdm(train_loader, desc="Training"):
                 x = data['gt'].to(self.device)
                 inp = data['inp'].to(self.device)
                 cell = data['cell'].to(self.device)
@@ -269,7 +270,7 @@ class Diffusion(object):
                 loss = loss_registry[config.model.type](model, x_t, inp, hr_coord, cell, e, b, continuous_sqrt_alpha_cumprod)
                 avg_loss.add(loss)
                 tb_logger.add_scalar("loss", loss, global_step=step)
-                print(f"Training... step: {step:7d},  pix_loss: {loss.item():10.7f}")
+                # print(f"Training... step: {step:7d},  pix_loss: {loss.item():10.7f}")
                 
                 optimizer.zero_grad()
                 loss.backward()
@@ -288,7 +289,7 @@ class Diffusion(object):
                 data_start = time.time()
 
                 # save model
-                if (step % 10000 == 0):
+                if (step % 20000 == 0):
                     states = [
                         model.state_dict(),
                         optimizer.state_dict(),

@@ -84,7 +84,7 @@ def dict2namespace(config):
     return namespace
 
 
-def eval_psrn(config, args, model, test_loader):
+def eval_psrn(config, args, model, test_loader, result_path, idx):
     model.eval()
 
     with torch.no_grad():
@@ -103,6 +103,7 @@ def eval_psrn(config, args, model, test_loader):
             visuals = get_current_visuals(sr, data)
             sr_img = tensor2img(visuals['SR'])  # uint8
             hr_img = tensor2img(visuals['GT'])
+            save_img(sr_img, '{}/{}_sr.png'.format(result_path, idx))
             
             sr = inverse_data_transform(config, sr)
             gt = inverse_data_transform(config, gt)
