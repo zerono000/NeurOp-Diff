@@ -12,7 +12,7 @@ The codes are based on python 3.11, pytorch 2.4.0 and CUDA version 12.4.
 
 # checkpoint
 
-The pre-trained weights for continuous SR can be found at this [link](https://drive.google.com/drive/folders/18bhPVB0V-IzbuUnMToz-IZdObYJpS9fG?usp=drive_link)
+The pre-trained weights for continuous SR can be found at this [link](https://drive.google.com/file/d/1A06iFZUyu1-CnYtIceBFmThhdhW65oH8/view?usp=drive_link)
 
 # Train
 
@@ -25,3 +25,7 @@ The pre-trained weights for continuous SR can be found at this [link](https://dr
 # Demo
 
 ```python demo.py --config ./configs/test.yml --model [checkpoint_path] --path [image_path]```
+
+# Acknowledgements
+
+This code is mainly built based on [DDIM](https://github.com/ermongroup/ddim), [SRNO](https://github.com/2y7c3/Super-Resolution-Neural-Operator) and [LIIF](https://github.com/yinboc/liif)
