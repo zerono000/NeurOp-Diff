@@ -3,7 +3,6 @@ import random
 import numpy as np
 
 from . import image_folder
-from . import wrappers
 
 from utils import make_coord
 from torchvision import transforms
