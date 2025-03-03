@@ -15,7 +15,6 @@ from models.denoising import generalized_steps, ddpm_steps
 from tqdm import tqdm
 from init_weight import init_weights
 from datasets.image_folder import ImageFolder
-from datasets.wrappers import SRImplicitDownsampledFast
 from datasets import data_transform, inverse_data_transform
 
 from utils import calc_psnr, calc_ssim
